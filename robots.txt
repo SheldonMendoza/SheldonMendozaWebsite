@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sheldonmendoza.com/sitemap.xml
+Sitemap: https://www.sheldonmendoza.com/sitemap.xml
