@@ -953,6 +953,98 @@ textarea:focus-visible {
   max-width: 60ch;
 }
 
+/* ---------- Insights ---------- */
+.insights-grid {
+  margin-top: var(--space-5);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-4);
+  background: var(--navy-950);
+  transition: background 0.3s var(--ease);
+}
+
+.insight-card:hover { background: var(--navy-900); }
+
+.insight-category,
+.article-category,
+.article-date {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.insight-category,
+.article-category { color: var(--blue-400); }
+
+.insight-card h2 {
+  margin-top: var(--space-2);
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.insight-card p {
+  margin-top: var(--space-2);
+  color: var(--white-dim);
+  line-height: 1.7;
+}
+
+.insight-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.insight-meta time,
+.article-date { color: var(--gray-400); }
+
+.article-header {
+  max-width: 820px;
+}
+
+.article-header h1 {
+  margin-top: var(--space-2);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.article-header .article-date { display: block; margin-top: var(--space-3); }
+
+.article-content {
+  max-width: 720px;
+  color: var(--white-dim);
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+.article-content p + p { margin-top: var(--space-3); }
+
+.article-content h2 {
+  margin-top: var(--space-5);
+  color: var(--white);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.article-back { margin-bottom: var(--space-4); }
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--border-softer);
@@ -1110,9 +1202,11 @@ textarea:focus-visible {
   .contact-page .contact-methods {
     grid-template-columns: 1fr;
   }
+
+  .insights-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .main-nav {
     position: fixed;
     top: 76px;
@@ -1148,7 +1242,9 @@ textarea:focus-visible {
   .nav-toggle {
     display: inline-flex;
   }
+}
 
+@media (max-width: 720px) {
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-2);
