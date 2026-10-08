@@ -907,67 +907,218 @@ textarea:focus-visible {
   margin-top: var(--space-3);
 }
 
-/* ---------- About page: professional development certificates ---------- */
-/* To add a new certificate: copy one <li class="cert-item"> in about/index.html,
-   update the title, institution/year and the href. Supported types: .pdf, .png,
-   .jpg, .jpeg — all open in a new tab at their original quality. */
-.cert-list {
-  margin-top: var(--space-4);
-  display: grid;
-  gap: var(--space-2);
+/* ---------- Professional development: about teaser + credentials page ---------- */
+/* To add a credential later: drop the file into /certificates/ (supports .pdf,
+   .png, .jpg, .jpeg), then copy one <article class="cred-card"> block in
+   professional-development/index.html and update the image src/alt, title,
+   organization, meta line and data attributes. No database, CMS or backend. */
+.cred-section {
+  margin-top: var(--space-5);
 }
 
-.cert-item {
+.cred-section:first-of-type {
+  margin-top: var(--space-4);
+}
+
+.cred-category {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-400);
+  margin-bottom: var(--space-3);
+}
+
+.cred-category::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-soft);
+}
+
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-3);
+}
+
+.cred-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
-  padding: var(--space-3);
   background: var(--navy-900);
-  transition: border-color 0.3s var(--ease), transform 0.35s var(--ease);
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), border-color 0.3s var(--ease), box-shadow 0.35s var(--ease);
 }
 
-.cert-item:hover {
-  border-color: rgba(91, 123, 255, 0.4);
-  transform: translateY(-2px);
+.cred-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(91, 123, 255, 0.35);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6);
 }
 
-.cert-icon {
-  flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  color: var(--blue-400);
+.cred-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: var(--space-3);
+  background: var(--navy-800);
+  border: 0;
+  border-bottom: 1px solid var(--border-softer);
+  cursor: zoom-in;
+  font: inherit;
 }
 
-.cert-text {
-  flex: 1 1 auto;
-  min-width: 0;
+.cred-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.55);
 }
 
-.cert-text h3 {
-  font-size: 1.05rem;
+.cred-media:focus-visible {
+  outline: 2px solid var(--blue-400);
+  outline-offset: -2px;
+}
+
+.cred-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: var(--space-3);
+}
+
+.cred-body h3 {
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+  line-height: 1.35;
   color: var(--white);
 }
 
-.cert-meta {
-  margin-top: 0.3rem;
-  font-size: 0.9rem;
+.cred-org {
+  font-size: 0.88rem;
+  color: var(--white-dim);
+  line-height: 1.55;
+}
+
+.cred-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--gray-400);
 }
 
-.cert-item .text-link {
-  flex: 0 0 auto;
+/* ---------- Credentials lightbox ---------- */
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 5, 10, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lightbox-figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: min(1020px, 94vw);
+  max-height: 92vh;
+  background: var(--navy-900);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy-800);
+  padding: var(--space-3);
+  min-height: 0;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 66vh;
+  object-fit: contain;
+  border-radius: 3px;
+  box-shadow: 0 18px 44px -16px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-caption {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  border-top: 1px solid var(--border-softer);
+}
+
+.lightbox-caption h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.lightbox-caption .lightbox-meta {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+.lightbox-caption .text-link {
+  margin-top: var(--space-2);
   font-size: 0.85rem;
 }
 
-@media (max-width: 560px) {
-  .cert-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.lightbox-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(5, 7, 13, 0.72);
+  color: var(--white);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.lightbox-close:hover {
+  border-color: var(--blue-400);
+  color: var(--blue-400);
 }
 
 /* ---------- What I Do full page ---------- */
@@ -1262,6 +1413,10 @@ textarea:focus-visible {
     gap: var(--space-1);
   }
 
+  .cred-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .contact-page .contact-methods {
     grid-template-columns: 1fr;
   }
@@ -1320,6 +1475,12 @@ textarea:focus-visible {
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .cred-grid {
+    grid-template-columns: 1fr;
   }
 }
 
