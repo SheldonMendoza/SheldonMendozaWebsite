@@ -271,6 +271,9 @@ textarea:focus-visible {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -280,6 +283,25 @@ textarea:focus-visible {
 
 .brand span {
   color: var(--blue-400);
+}
+
+.brand-logo {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.footer-logo {
+  width: 280px;
+  max-width: 82vw;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 560px) {
+  .brand-logo {
+    height: 38px;
+  }
 }
 
 .main-nav {
